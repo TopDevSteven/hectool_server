@@ -29,7 +29,7 @@ store_name = os.getenv("SHOPIFY_STORE_NAME")
 openai_key = os.getenv("OPENAI_API_KEY")
 openai.api_key = os.getenv("OPENAI_API_KEY")
 database = os.getenv("DB")
-host = os.getenv("HOST")
+db_host = os.getenv("HOST")
 user = os.getenv("USER")
 password = os.getenv("PASSWORD")
 db_port = os.getenv("DBPORT")
@@ -41,7 +41,7 @@ store_endpoint = f"https://{store_name}.myshopify.com/admin/products.json?limit=
 
 llm = ChatOpenAI(model_name='gpt-3.5-turbo', openai_api_key=openai_key, temperature=0.3)
 
-db = SQLDatabase.from_uri(f"postgresql://{user}:{password}@{host}:{db_port}/{database}", include_tables=['products'])
+db = SQLDatabase.from_uri(f"postgresql://{user}:{password}@{db_host}:{db_port}/{database}", include_tables=['products'])
 
 db_chain = SQLDatabaseChain.from_llm(llm, db, verbose=True, return_direct = True, return_intermediate_steps=True)
 
