@@ -32,7 +32,7 @@ database = os.getenv("DB")
 host = os.getenv("HOST")
 user = os.getenv("USER")
 password = os.getenv("PASSWORD")
-port = os.getenv("PORT")
+port = os.getenv("DBPORT")
 token_limit = 4000
 page_limit = 10
 store_endpoint = f"https://{store_name}.myshopify.com/admin/products.json?limit={page_limit}"
