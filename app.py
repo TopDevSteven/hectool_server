@@ -54,7 +54,9 @@ conn = psycopg2.connect(database=database,
                         host=db_host,
                         user=user,
                         password=password,
-                        port=db_port)
+                        port=db_port,
+                        sslmode="require"
+                        )
 
 
 
