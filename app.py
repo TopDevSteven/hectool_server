@@ -29,10 +29,11 @@ store_name = os.getenv("SHOPIFY_STORE_NAME")
 openai_key = os.getenv("OPENAI_API_KEY")
 openai.api_key = os.getenv("OPENAI_API_KEY")
 database = os.getenv("DB")
-db_host = os.getenv("HOST")
+db_host = os.getenv("DBHOST")
 user = os.getenv("USER")
 password = os.getenv("PASSWORD")
 db_port = os.getenv("DBPORT")
+db_url = os.getenv("DB_URL")
 token_limit = 4000
 page_limit = 10
 store_endpoint = f"https://{store_name}.myshopify.com/admin/products.json?limit={page_limit}"
@@ -41,7 +42,7 @@ store_endpoint = f"https://{store_name}.myshopify.com/admin/products.json?limit=
 
 llm = ChatOpenAI(model_name='gpt-3.5-turbo', openai_api_key=openai_key, temperature=0.3)
 
-db = SQLDatabase.from_uri(f"postgresql://{user}:{password}@{db_host}:{db_port}/{database}", include_tables=['products'])
+db = SQLDatabase.from_uri(db_url, include_tables=['products'])
 
 db_chain = SQLDatabaseChain.from_llm(llm, db, verbose=True, return_direct = True, return_intermediate_steps=True)
 
@@ -50,10 +51,10 @@ db_chain = SQLDatabaseChain.from_llm(llm, db, verbose=True, return_direct = True
 
 
 conn = psycopg2.connect(database=database,
-                        host=host,
+                        host=db_host,
                         user=user,
                         password=password,
-                        port=port)
+                        port=db_port)
 
 
 
